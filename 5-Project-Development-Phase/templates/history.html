@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}History - PocketSmart{% endblock %}
+{% block content %}
+<section class="section">
+  <h2 class="center">Recommendation History</h2>
+  {% for r in rows %}
+  <details class="panel wide">
+    <summary><strong>{{ titles[r.planner] }}</strong> — Budget ₹{{ '%.0f'|format(r.budget) }}, planned ₹{{ '%.0f'|format(r.total) }} · {{ r.created_at }}</summary>
+    <ul>
+      {% for it in results[loop.index0]['items'] %}
+        <li>{{ it.category|title }}: {{ it.name }} ({{ it.platform }}) — ₹{{ it.price }}</li>
+      {% endfor %}
+    </ul>
+  </details>
+  {% else %}<p class="center">Nothing saved yet.</p>{% endfor %}
+</section>
+{% endblock %}

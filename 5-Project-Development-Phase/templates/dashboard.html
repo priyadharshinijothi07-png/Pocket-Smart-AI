@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - PocketSmart{% endblock %}
+{% block content %}
+<header class="hero small-hero">
+  <h1>Welcome, {{ session.username }}!</h1>
+  <p>Choose a budget planner to get started with your personalized financial planning experience</p>
+</header>
+<section class="section">
+  <div class="cards">
+    <div class="card"><div class="icon">🏠</div><h3>Home Budget Planner</h3><p>Plan your interior design budget efficiently with AI-powered recommendations.</p><a class="btn full" href="{{ url_for('home_planner') }}">Get Started</a></div>
+    <div class="card"><div class="icon">🎉</div><h3>Party Budget Planner</h3><p>Plan your perfect event with budget allocations for venue, catering and more.</p><a class="btn full" href="{{ url_for('party_planner') }}">Get Started</a></div>
+    <div class="card"><div class="icon">💎</div><h3>Jewelry Budget Planner</h3><p>Find the ideal jewelry pieces for any occasion within your budget.</p><a class="btn full" href="{{ url_for('jewelry_planner') }}">Get Started</a></div>
+  </div>
+  <p class="center"><a class="btn orange" href="{{ url_for('history') }}">View All Recommendation History</a></p>
+  <div class="panel wide">
+    <h3>Recent Activity</h3>
+    {% for r in recent %}
+      <div class="row"><strong>{{ titles[r.planner] }}</strong>
+        <span>Budget ₹{{ '%.0f'|format(r.budget) }} · {{ r.created_at }}</span></div>
+    {% else %}<p>No activity yet. Try a planner above.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

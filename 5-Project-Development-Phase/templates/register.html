@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Register - PocketSmart{% endblock %}
+{% block content %}
+<div class="auth">
+  <h1 class="logo">PocketSmart</h1><p class="center">Create your account</p>
+  <form method="post" class="panel">
+    <h2 class="center">Sign Up</h2>
+    <label>Username<input name="username" minlength="3" required></label>
+    <label>Password<input name="password" type="password" minlength="6" required></label>
+    <button class="btn full">Register</button>
+    <p class="center">Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+  </form>
+</div>
+{% endblock %}

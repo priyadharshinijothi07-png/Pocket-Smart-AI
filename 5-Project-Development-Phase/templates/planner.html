@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} - PocketSmart{% endblock %}
+{% block content %}
+<header class="hero small-hero"><h1>{{ title }}</h1>
+  <p>{% if kind=='home' %}Create a customized budget plan for your dream home interior
+     {% elif kind=='party' %}Plan a great event without financial guesswork
+     {% else %}Find matching jewelry that fits your style and budget{% endif %}</p></header>
+<section class="section">
+<form id="planner-form" class="panel wide" data-kind="{{ kind }}" enctype="multipart/form-data">
+  <fieldset><legend>Budget Details</legend>
+    <label>Total Budget (₹)<input type="number" name="budget" min="1" placeholder="50000" required></label>
+  </fieldset>
+
+  {% if kind == 'home' %}
+  <fieldset><legend>Fixtures &amp; Furniture</legend>
+    <div class="grid">
+      <label>Number of Lights/Fixtures<input type="number" name="lights" min="0" value="0"></label>
+      <label>Number of Ceiling Fans<input type="number" name="fans" min="0" value="0"></label>
+      <label>Number of Furniture Pieces<input type="number" name="furniture" min="0" value="0"></label>
+      <label>Number of Dining Tables<input type="number" name="dining_tables" min="0" value="0"></label>
+    </div></fieldset>
+  <fieldset><legend>Rooms to Include</legend>
+    <label class="inline"><input type="checkbox" name="rooms" value="Living Room"> Living Room</label>
+    <label class="inline"><input type="checkbox" name="rooms" value="Kitchen"> Kitchen</label>
+    <label class="inline"><input type="checkbox" name="rooms" value="Bedroom"> Bedroom</label>
+  </fieldset>
+  {% elif kind == 'party' %}
+  <fieldset><legend>Event Details</legend>
+    <div class="grid">
+      <label>Guest Count<input type="number" name="guests" min="1" required></label>
+      <label>Event Type
+        <select name="event_type"><option>birthday</option><option>corporate</option><option>wedding</option><option>other</option></select></label>
+    </div>
+    <label>Venue Details<input name="venue" placeholder="e.g. Home terrace, Kochi"></label>
+  </fieldset>
+  {% else %}
+  <fieldset><legend>Occasion &amp; Style</legend>
+    <div class="grid">
+      <label>Occasion<input name="occasion" placeholder="Wedding, Festival, Office" required></label>
+      <label>Style Preference<input name="style" placeholder="Traditional, minimal, modern"></label>
+    </div>
+    <label>Outfit Image (optional)<input type="file" name="outfit_image" accept="image/png,image/jpeg,image/webp"></label>
+  </fieldset>
+  {% endif %}
+
+  <fieldset><legend>Additional Information</legend>
+    <label>Special Requirements or Preferences<textarea name="notes" rows="3" placeholder="Any specific requirements or preferences..."></textarea></label>
+  </fieldset>
+  <button class="btn" type="submit">Generate Recommendations</button>
+</form>
+<div id="error" class="flash" hidden></div>
+<div id="results"></div>
+</section>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
